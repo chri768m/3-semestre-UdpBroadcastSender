@@ -64,6 +64,8 @@ namespace UdpBroadcastSender
             {
                 GetRandomHumi();
                 GetRandomTemp();
+                GetRandomCO2();
+                GetRandomStoej();
                 Measurement Meas = new Measurement(CN, HN, SN, CON, _nextId++);
                 string message = "" + Meas;
                 byte[] sendBuffer = Encoding.ASCII.GetBytes(Meas.ToString());

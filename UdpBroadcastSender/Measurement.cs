@@ -25,7 +25,7 @@ namespace UdpBroadcastSender
 
         public override string ToString()
         {
-            return Temp + " " + Humi + " " + Stoej;
+            return Temp + " " + Humi + " " + Stoej + " " + CO2;
         }
     }
 }
