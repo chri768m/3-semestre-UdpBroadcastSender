@@ -12,6 +12,7 @@ namespace UdpBroadcastSender
     {
         public static int CN = 20;
         public static int HN = 70;
+        public static int SN = 75;
         private static int _nextId = 1;
         private static readonly Random Getrandom = new Random();
 
@@ -25,6 +26,15 @@ namespace UdpBroadcastSender
             }
         }
 
+        public static int GetRandomStoej()
+        {
+            lock (Getrandom) // synchronize
+            {
+                SN = Getrandom.Next(SN - 1, SN + 2);
+                return SN;
+            }
+        }
+
         public static int GetRandomHumi()
         {
             lock (Getrandom) // synchronize
@@ -33,6 +43,7 @@ namespace UdpBroadcastSender
                 return HN;
             }
         }
+
         public const int Port = 8400;
         static void Main()
         {
@@ -43,7 +54,7 @@ namespace UdpBroadcastSender
             {
                 GetRandomHumi();
                 GetRandomTemp();
-                Measurement Meas = new Measurement(CN, HN, _nextId++);
+                Measurement Meas = new Measurement(CN, HN, SN, _nextId++);
                 string message = "" + Meas;
                 byte[] sendBuffer = Encoding.ASCII.GetBytes(Meas.ToString());
                 socket.Send(sendBuffer, sendBuffer.Length, endPoint);
